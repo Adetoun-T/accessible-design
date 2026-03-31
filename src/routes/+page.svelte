@@ -64,78 +64,91 @@
 	}
 </script>
 
-<div class="container">
-	<h1>CRUD (Accessibility Issues)</h1>
-	<h3>Student Records</h3>
+
+<main class="container">
+
+
+	<div class="container">
+		<h1>CRUD (Accessibility Issues)</h1>
+		<h2>Student Records</h2>
+
 
 	<div class="intro card">
-		<img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=80" />
+		<img alt="" src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=80" />
+		
 		<p class="helper-text">Use this page to quickly manage people in the system.</p>
-		<p><a class="text-link" href="/">Click here</a> to review the latest updates.</p>
-		<a class="ghost-link" href="/"></a>
+		
+		<p>
+			<a class="text-link" href="/">Review the latest updates.</a>
+		</p>
 	</div>
 
-	<div class="card">
-		<h2>{editId ? 'Edit Person' : 'Add Person'}</h2>
-		<h4 class="visually-hidden"></h4>
-		<form onsubmit={handleSubmit} aria-describedby="missing-form-help">
-			<fieldset>
-				<div class="form-group">
-					<input id="person-field" type="text" placeholder="First Name" bind:value={firstName} required />
-				</div>
-				
-				<div class="form-group">
-					<input id="person-field" type="text" placeholder="Last Name" bind:value={lastName} required />
-				</div>
-				
-				<div class="form-group">
-					<input id="person-field" type="number" placeholder="Age" bind:value={age} required />
-				</div>
-			</fieldset>
-			
-			<div class="actions">
-				<button type="submit">{editId ? 'Update' : 'Add'}</button>
-				{#if editId}
-					<button type="button" class="secondary" onclick={cancelEdit}>Cancel</button>
-				{/if}
-			</div>
-		</form>
-	</div>
+		<div class="card">
+			<h2>{editId ? 'Edit Person' : 'Add Person'}</h2>
 
-	<div class="card">
-		<h2>People List</h2>
-		<table>
-			<thead>
-				<tr>
-				  <td>ID</td>
-					<td>First Name</td>
-					<td>Last Name</td>
-					<td>Age</td>
-					<td>Actions</td>
-				</tr>
-			</thead>
-			<tbody>
-				{#each items as item}
-					<tr>
-            <td>{item.id}</td>
-						<td>{item.firstName}</td>
-						<td>{item.lastName}</td>
-						<td>{item.age}</td>
-						<td>
-							<button class="small icon-button" tabindex="2" onclick={() => startEdit(item)}><span aria-hidden="true">✎</span></button>
-							<button class="small danger icon-button" tabindex="4" onclick={() => deleteItem(item.id)}><span aria-hidden="true">✕</span></button>
-						</td>
-					</tr>
-				{/each}
-				{#if items.length === 0}
-					<tr>
-						<td colspan="4" style="text-align: center;">No data found</td>
-					</tr>
-				{/if}
-			</tbody>
-		</table>
+			<legend class="visually-hidden"></legend>
+
+			<form onsubmit={handleSubmit} >
+				<fieldset>
+					<legend class="form"></legend>
+
+					<div class="form-group">
+						<label for="first-name">First Name</label> 
+						<input id="first-name" type="text" placeholder="First Name" bind:value={firstName} required />
+					</div>
+					
+					<div class="form-group">
+						<label for="last-name">Last Name</label>
+						<input id="last-name" type="text" placeholder="Last Name" bind:value={lastName} required />
+					</div>
+					
+					<div class="form-group">
+						<label for="age">Age</label>
+						<input id="age" type="number" placeholder="Age" bind:value={age} required />
+					</div>
+				</fieldset>
+				
+				<div class="actions">
+					<button type="submit">{editId ? 'Update' : 'Add'}</button>
+					{#if editId}
+						<button type="button" class="secondary" onclick={cancelEdit}>Cancel</button>
+					{/if}
+				</div>
+			</form>
+		</div>
+
+		<div class="card">
+			<h2>People List</h2>
+			<table>
+    <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Age</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {#each items as item}
+            <tr>
+                <td>{item.id}</td>
+                <td>{item.firstName}</td>
+                <td>{item.lastName}</td>
+                <td>{item.age}</td>
+                <td>
+                    <button class="small icon-button" onclick={() => startEdit(item)}>
+                         <span aria-hidden="true">✎</span>
+                         <span class="visually-hidden">Edit {item.firstName}</span>
+                    </button>
+                    </td>
+            </tr>
+        {/each}
+    </tbody>
+</table>
+		</div>
 	</div>
-</div>
+</main>
 
 <style>
 	.container {
@@ -147,7 +160,7 @@
 	
 	h1 { margin-bottom: 20px; }
 
-	h3 {
+	h2 {
 		margin-top: -10px;
 		margin-bottom: 20px;
 		font-size: 1rem;
@@ -181,19 +194,19 @@
 	}
 
 	.helper-text {
-		color: #c7c7c7;
+		color: #111111;
 		margin-bottom: 12px;
 	}
 
 	.text-link {
-		color: #6b7280;
+		color: #000000;
 	}
 
 	.ghost-link {
 		display: inline-block;
 		width: 24px;
 		height: 24px;
-		border: 1px solid #ddd;
+		border: 1px solid #000000;
 		border-radius: 999px;
 	}
 	
@@ -218,6 +231,18 @@
 		border: none;
 		border-radius: 4px;
 		cursor: pointer;
+	}
+	button {
+    padding: 8px 16px;
+    background-color: #0056b3; 
+    color: #ffffff;           
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+	button.secondary, button.danger {
+		color: white;
 	}
 	
 	button:hover { background-color: #0056b3; }
